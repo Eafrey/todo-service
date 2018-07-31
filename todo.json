@@ -1,0 +1,7 @@
+{
+  "todos": [
+    { "id": 1, "content": "todoFromJSON-1" },
+    { "id": 2, "content": "todoFromJSON-2" },
+    { "id": 3, "content": "todoFromJSON-3" }
+  ]
+}
