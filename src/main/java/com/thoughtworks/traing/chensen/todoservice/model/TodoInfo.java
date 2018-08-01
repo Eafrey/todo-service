@@ -16,7 +16,7 @@ public class TodoInfo {
 
     @JsonProperty
     boolean readOnly() {
-        return false;
+        return true;
     }
 
     @JsonProperty

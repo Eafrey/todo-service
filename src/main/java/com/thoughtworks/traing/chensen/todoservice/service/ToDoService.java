@@ -14,8 +14,8 @@ public class ToDoService {
     private ToDoRepository toDoRepository;
 
 
-    public List<TodoInfo> getToDos() {
+    public String getToDos() {
 //        return toDoRepository.list();
-        return toDoRepository.getListFromFile("/Users/senchen/CodeWorks/IDEAWorkSpace/Week3/todo-service/todo.json");
+        return toDoRepository.getListFromFile();
     }
 }
