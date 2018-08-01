@@ -1,18 +1,14 @@
 package com.thoughtworks.traing.chensen.todoservice.repository;
 
-import com.sun.tools.javac.comp.Todo;
-import com.thoughtworks.traing.chensen.todoservice.model.Person;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.traing.chensen.todoservice.model.TodoInfo;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +17,10 @@ public class ToDoRepository {
 
     @Value(value = "classpath:static/todo.json")
     private Resource data;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
 
     public List<TodoInfo> list() {
         List<TodoInfo> res = new ArrayList<>();
@@ -31,7 +31,7 @@ public class ToDoRepository {
         return  res;
     }
 
-    public String getListFromFile() {
+    public List<TodoInfo> getListFromFile() throws IOException {
         List<TodoInfo> res = new ArrayList<>();
         String jsonStr = "";
         try {
@@ -55,8 +55,10 @@ public class ToDoRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return jsonStr;
-//        return res;
+
+        List<TodoInfo> list = objectMapper.readValue(jsonStr, new TypeReference<List<TodoInfo>>(){});
+
+        return list;
     }
 
 }
