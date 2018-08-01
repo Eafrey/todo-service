@@ -29,6 +29,26 @@ public class ToDoApi {
 
     }
 
+    @GetMapping("/todos/{id}")
+    public TodoInfo find(@PathVariable Integer id) {
+        return toDoService.find(id);
+    }
+
+    @PostMapping("/todos")
+    public void addToDo(@RequestBody TodoInfo todoInfo) {
+        toDoService.add(todoInfo);
+    }
+
+//    @PostMapping("/todos")
+//    public void updateToDo(TodoInfo todoInfo) {
+//        toDoService.update(todoInfo);
+//    }
+
+    @DeleteMapping("/todos/{id}")
+    public void updateToDo(@PathVariable Integer id) {
+        toDoService.delete(id);
+    }
+
     @GetMapping("/todos")
     public List<TodoInfo> todo() throws IOException {
 //        List<TodoInfo> todoInfos = toDoService.getToDos();

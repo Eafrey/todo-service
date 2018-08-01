@@ -5,12 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -19,6 +26,8 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "todo")
+//@Where(clause = "delete = false")
+@SQLDelete(sql = "UPDATE todo SET deleted = true WHERE id = ?")
 public class TodoInfo {
     @Id
     @GeneratedValue
@@ -33,17 +42,26 @@ public class TodoInfo {
     }
 
     @JsonProperty
-    boolean complete() {
-        return false;
-    }
+    private boolean complete;
+//    boolean complete() {
+//        return false;
+//    }
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "todo_id")
+    private List<Task> tasks;
 
     @JsonProperty
     boolean visible() {
         return true;
     }
 
-    @JsonProperty
-    long date() {
-        return new Date().getTime();
-    }
+    @Column(columnDefinition = "DATETIME")
+    private Date date;
+
+//    @JsonProperty
+//    long date() {
+//        return new Date().getTime();
+//    }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public interface ToDoRepository extends JpaRepository<TodoInfo, Integer> {
 
-
+    List<TodoInfo> findTodoInfoByCompleteIs(boolean status);
 
 
 
