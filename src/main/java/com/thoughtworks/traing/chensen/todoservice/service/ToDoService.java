@@ -1,5 +1,6 @@
 package com.thoughtworks.traing.chensen.todoservice.service;
 
+import com.thoughtworks.traing.chensen.todoservice.model.Task;
 import com.thoughtworks.traing.chensen.todoservice.model.TodoInfo;
 import com.thoughtworks.traing.chensen.todoservice.repository.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,6 @@ public class ToDoService {
 
     public void add(TodoInfo todoInfo) {
         System.out.println("todoInfoBody"+todoInfo);
-//        todoInfo.getTasks().stream().forEach(task -> {
-//            task.setTodoInfo(todoInfo);
-//        });
-        System.out.println("todoInfoadd"+todoInfo);
         toDoRepository.save(todoInfo);
     }
 }
