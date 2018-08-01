@@ -34,9 +34,9 @@ public class ToDoApi {
 //        List<TodoInfo> todoInfos = toDoService.getToDos();
 //        return todoInfos;
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println("toDoService.getToDos()" + toDoService.getToDos());
-        List<TodoInfo> list = objectMapper.readValue(toDoService.getToDos(), new TypeReference<List<TodoInfo>>(){});
-        return list;
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        System.out.println("toDoService.getToDos()" + toDoService.getToDos());
+//        List<TodoInfo> list = objectMapper.readValue(toDoService.getToDos(), new TypeReference<List<TodoInfo>>(){});
+        return toDoService.getToDos();
     }
 }

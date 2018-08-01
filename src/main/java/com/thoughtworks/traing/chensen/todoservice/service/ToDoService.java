@@ -5,6 +5,7 @@ import com.thoughtworks.traing.chensen.todoservice.repository.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -14,7 +15,7 @@ public class ToDoService {
     private ToDoRepository toDoRepository;
 
 
-    public String getToDos() {
+    public List<TodoInfo> getToDos() throws IOException {
 //        return toDoRepository.list();
         return toDoRepository.getListFromFile();
     }
