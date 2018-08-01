@@ -17,6 +17,7 @@ public class ToDoService {
 
     public List<TodoInfo> getToDos() throws IOException {
 //        return toDoRepository.list();
-        return toDoRepository.getListFromFile();
+//        return toDoRepository.getListFromFile();
+        return toDoRepository.findAll();
     }
 }
