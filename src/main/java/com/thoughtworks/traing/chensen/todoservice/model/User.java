@@ -22,6 +22,7 @@ public class User {
     @GeneratedValue
     private int id;
 
+    @Column(name = "user_name")
     private String userName;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

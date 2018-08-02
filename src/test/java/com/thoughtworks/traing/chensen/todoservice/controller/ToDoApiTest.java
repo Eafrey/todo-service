@@ -29,16 +29,16 @@ public class ToDoApiTest {
     @MockBean
     private ToDoRepository toDoRepository;
 
-    @Test
-    public void shouldReturnTodoList() throws Exception {
-        when(toDoRepository.getListFromFile())
-                .thenReturn(ImmutableList.of(new TodoInfo(111, "123")));
-
-        MvcResult result = mockMvc.perform(get("/todos"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(1))
-                .andExpect(jsonPath("$[0].id").value(111))
-                .andExpect(jsonPath("$[0].complete").value(false))
-                .andReturn();
-    }
+//    @Test
+//    public void shouldReturnTodoList() throws Exception {
+//        when(toDoRepository.getListFromFile())
+//                .thenReturn(ImmutableList.of(new TodoInfo(111, "123")));
+//
+//        MvcResult result = mockMvc.perform(get("/todos"))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.length()").value(1))
+//                .andExpect(jsonPath("$[0].id").value(111))
+//                .andExpect(jsonPath("$[0].complete").value(false))
+//                .andReturn();
+//    }
 }

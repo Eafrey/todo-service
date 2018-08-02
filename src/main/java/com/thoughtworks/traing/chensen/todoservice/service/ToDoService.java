@@ -40,7 +40,7 @@ public class ToDoService {
     }
 
     public void add(TodoInfo todoInfo) {
-        System.out.println("todoInfoBody"+todoInfo);
+//        System.out.println("todoInfoBody"+todoInfo);
         toDoRepository.save(todoInfo);
     }
 }

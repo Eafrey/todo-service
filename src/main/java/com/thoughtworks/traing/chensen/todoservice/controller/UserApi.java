@@ -34,10 +34,6 @@ public class UserApi {
         userService.add(user);
     }
 
-        @DeleteMapping("/users/{id}")
-    public void updateToDo(@PathVariable Integer id) {
-        userService.delete(id);
-    }
 
     @GetMapping("/users")
     public List<User> todo() throws IOException {
