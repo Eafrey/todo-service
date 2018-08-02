@@ -36,7 +36,8 @@ public class TodoInfo {
 
     private String content;
 
-    private boolean readonly;
+    @Column(name = "readonly")
+    private boolean readOnly;
 
     private boolean complete;
 
