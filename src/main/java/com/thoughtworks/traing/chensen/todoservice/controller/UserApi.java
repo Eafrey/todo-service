@@ -34,7 +34,7 @@ public class UserApi {
         userService.add(user);
     }
 
-    @DeleteMapping("/users/{id}")
+        @DeleteMapping("/users/{id}")
     public void updateToDo(@PathVariable Integer id) {
         userService.delete(id);
     }
