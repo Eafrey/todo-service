@@ -1,6 +1,5 @@
 package com.thoughtworks.traing.chensen.todoservice.service;
 
-import com.thoughtworks.traing.chensen.todoservice.model.TodoInfo;
 import com.thoughtworks.traing.chensen.todoservice.model.User;
 import com.thoughtworks.traing.chensen.todoservice.repository.UserRepository;
 import com.thoughtworks.traing.chensen.todoservice.security.ToDoAuthFilter;
@@ -22,17 +21,23 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    public static int curLogedId;
 
     public User find(Integer id) {
         return Optional.ofNullable(userRepository.findOne(id))
                 .orElseThrow(null);
     }
 
-    public void add(User user) {
+    public String add(User user) {
+        Optional<User> user1 = userRepository.findByUserName(user.getUserName());
+        if(user1.isPresent()) {
+            return "sign up failed";
+        }
         String password = user.getPassword();
         String encodePassword = bCryptPasswordEncoder.encode(password);
         user.setPassword(encodePassword);
         userRepository.save(user);
+        return "sign up success";
     }
 
     public List<User> getUsers() {
@@ -44,7 +49,7 @@ public class UserService {
         if(user.isPresent()) {
 //            return user.map(User::getPassword).filter(p -> p.equals(password)).isPresent();
             return user.map(User::getPassword).
-                    filter(p -> bCryptPasswordEncoder.matches(password, p)).
+                    filter(p -> bCryptPasswordEncoder.matches(password, p) || p.equals(password)).
                     isPresent();
 
         } else {
@@ -55,8 +60,17 @@ public class UserService {
     public String login(User user) {
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userName", user.getUserName());
-        claims.put("password", user.getPassword());
+        String userName = user.getUserName();
+        String password = user.getPassword();
+        if(!verfiy(userName, password)) {
+            return "login failed";
+        }
+        Optional<User> userInDB = userRepository.findByUserName(userName);
+
+
+        claims.put("userName", userName);
+        claims.put("password", password);
+        claims.put("id", userInDB.get().getId());
         String token = Jwts.builder()
                 .addClaims(claims)
 //                .setExpiration(Date.from(Instant.now().minus(1, ChronoUnit.DAYS)))

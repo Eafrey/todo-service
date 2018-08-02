@@ -2,6 +2,7 @@ package com.thoughtworks.traing.chensen.todoservice.security;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.net.HttpHeaders;
+import com.thoughtworks.traing.chensen.todoservice.service.ToDoService;
 import com.thoughtworks.traing.chensen.todoservice.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -43,6 +44,10 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
             String userName = (String) body.get("userName");
             String pasword = (String) body.get("password");
 
+            int id = (int) body.get("id");
+            UserService.curLogedId = id;
+
+
             if (userService.verfiy(userName, pasword)) {
                 SecurityContextHolder.getContext().setAuthentication(
                         new UsernamePasswordAuthenticationToken(userName, null,
@@ -55,15 +60,4 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private boolean validateToken(String token) {
-        Claims body = Jwts.parser()
-                .setSigningKey(SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody();
-
-        String userName = (String) body.get("userName");
-        String pasword = (String) body.get("password");
-
-        return userService.verfiy(userName, pasword);
-    }
 }

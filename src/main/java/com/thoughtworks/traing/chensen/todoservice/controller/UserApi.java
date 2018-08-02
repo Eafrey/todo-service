@@ -30,8 +30,8 @@ public class UserApi {
     }
 
     @PostMapping("/users")
-    public void addToDo(@RequestBody User user) {
-        userService.add(user);
+    public String addToDo(@RequestBody User user) {
+        return userService.add(user);
     }
 
 

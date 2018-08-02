@@ -52,4 +52,7 @@ public class TodoInfo {
     @Column(columnDefinition = "DATETIME")
     private Date date;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private int createBy;
+
 }

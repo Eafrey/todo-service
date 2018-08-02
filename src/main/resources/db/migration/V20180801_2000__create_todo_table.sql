@@ -5,5 +5,6 @@ CREATE TABLE todo (
   readonly BOOLEAN,
   visible BOOLEAN,
   deleted BOOLEAN,
-  date DATETIME
+  date DATETIME,
+  create_by int
 )

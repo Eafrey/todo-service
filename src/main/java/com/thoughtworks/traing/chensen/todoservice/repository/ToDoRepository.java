@@ -17,8 +17,7 @@ import java.util.List;
 @Repository
 public interface ToDoRepository extends JpaRepository<TodoInfo, Integer> {
 
-    List<TodoInfo> findTodoInfoByCompleteIs(boolean status);
-
+    public List<TodoInfo> findTodoInfosByCreateByIs(int creatBy);
 
 
 //    @Value(value = "classpath:static/todo.json")

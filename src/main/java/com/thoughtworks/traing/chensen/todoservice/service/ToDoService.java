@@ -20,9 +20,8 @@ public class ToDoService {
     private ToDoRepository toDoRepository;
 
     public List<TodoInfo> getToDos() throws IOException {
-//        return toDoRepository.list();
-//        return toDoRepository.getListFromFile();
-        return toDoRepository.findAll();
+//        return toDoRepository.findAll();
+        return toDoRepository.findTodoInfosByCreateByIs(UserService.curLogedId);
     }
 
     @Transactional
@@ -41,6 +40,7 @@ public class ToDoService {
 
     public void add(TodoInfo todoInfo) {
 //        System.out.println("todoInfoBody"+todoInfo);
+        todoInfo.setCreateBy(UserService.curLogedId);
         toDoRepository.save(todoInfo);
     }
 }
