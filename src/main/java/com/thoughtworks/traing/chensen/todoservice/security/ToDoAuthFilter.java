@@ -35,7 +35,6 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         if(!StringUtils.isEmpty(token)) {
-//            String userName = token.split(":")[0];
             Claims body = Jwts.parser()
                     .setSigningKey(SECRET_KEY)
                     .parseClaimsJws(token)
@@ -56,6 +55,12 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
                 );
             }
         }
+
+//        SecurityContextHolder.getContext().setAuthentication(
+//                new UsernamePasswordAuthenticationToken("user", null,
+//                        ImmutableList.of(new SimpleGrantedAuthority("admin"),
+//                                new SimpleGrantedAuthority("role")))
+//        );
 
         filterChain.doFilter(request, response);
     }

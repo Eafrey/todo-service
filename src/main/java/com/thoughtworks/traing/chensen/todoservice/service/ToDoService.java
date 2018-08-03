@@ -20,8 +20,8 @@ public class ToDoService {
     private ToDoRepository toDoRepository;
 
     public List<TodoInfo> getToDos() throws IOException {
-//        return toDoRepository.findAll();
-        return toDoRepository.findTodoInfosByCreateByIs(UserService.curLogedId);
+        return toDoRepository.findAll();
+//        return toDoRepository.findTodoInfosByCreateByIs(UserService.curLogedId);
     }
 
     @Transactional

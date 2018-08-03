@@ -9,9 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+
+import java.util.Collections;
+import java.util.Date;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,4 +48,39 @@ public class ToDoApiTest {
 //                .andExpect(jsonPath("$[0].complete").value(false))
 //                .andReturn();
 //    }
+
+    @Test
+    public void shoulReturnUnauthenticate() throws Exception {
+        when(toDoRepository.findAll())
+                .thenReturn(ImmutableList.of(new TodoInfo(111, "user-1", true, false, null, true, false, new Date(), 1)
+                ,new TodoInfo(111, "user-2", true, false, null, true, false, new Date(), 1)));
+
+        mockMvc.perform(get("/todos"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void shoulReturnTodosWhenHadAuthenticate() throws Exception {
+        when(toDoRepository.findAll())
+                .thenReturn(ImmutableList.of(new TodoInfo(111, "user-1", true, false, null, true, false, new Date(), 1)
+                        ,new TodoInfo(111, "user-2", true, false, null, true, false, new Date(), 1)));
+
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken("user", null,
+                        ImmutableList.of(new SimpleGrantedAuthority("admin"),
+                                new SimpleGrantedAuthority("role")))
+        );
+
+
+
+        mockMvc.perform(get("/todos")
+//                .with(authenticate(new UsernamePasswordAuthenticationToken(
+//                        userFixture, null, Collections.emptyList()
+//                )))
+                 )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$[0].id").value(111))
+                .andExpect(jsonPath("$[0].content").value("user-1"));
+    }
 }

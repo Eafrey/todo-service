@@ -6,6 +6,8 @@ import com.thoughtworks.traing.chensen.todoservice.security.ToDoAuthFilter;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,16 +30,16 @@ public class UserService {
                 .orElseThrow(null);
     }
 
-    public String add(User user) {
+    public ResponseEntity add(User user) {
         Optional<User> user1 = userRepository.findByUserName(user.getUserName());
-        if(user1.isPresent()) {
-            return "sign up failed";
+        if (user1.isPresent()) {
+            return new ResponseEntity(HttpStatus.CONFLICT);
         }
         String password = user.getPassword();
         String encodePassword = bCryptPasswordEncoder.encode(password);
         user.setPassword(encodePassword);
         userRepository.save(user);
-        return "sign up success";
+        return ResponseEntity.ok("sign success");
     }
 
     public List<User> getUsers() {
@@ -46,7 +48,7 @@ public class UserService {
 
     public boolean verfiy(String userName, String password) {
         Optional<User> user = userRepository.findByUserName(userName);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
 //            return user.map(User::getPassword).filter(p -> p.equals(password)).isPresent();
             return user.map(User::getPassword).
                     filter(p -> bCryptPasswordEncoder.matches(password, p) || p.equals(password)).
@@ -57,13 +59,13 @@ public class UserService {
         }
     }
 
-    public String login(User user) {
+    public ResponseEntity login(User user) {
 
         Map<String, Object> claims = new HashMap<>();
         String userName = user.getUserName();
         String password = user.getPassword();
-        if(!verfiy(userName, password)) {
-            return "login failed";
+        if (!verfiy(userName, password)) {
+            return new ResponseEntity(HttpStatus.BAD_GATEWAY);
         }
         Optional<User> userInDB = userRepository.findByUserName(userName);
 
@@ -73,10 +75,9 @@ public class UserService {
         claims.put("id", userInDB.get().getId());
         String token = Jwts.builder()
                 .addClaims(claims)
-//                .setExpiration(Date.from(Instant.now().minus(1, ChronoUnit.DAYS)))
                 .signWith(SignatureAlgorithm.HS512, ToDoAuthFilter.SECRET_KEY)
                 .compact();
 
-        return token;
+        return ResponseEntity.ok(token);
     }
 }

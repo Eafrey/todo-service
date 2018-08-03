@@ -1,17 +1,9 @@
 package com.thoughtworks.traing.chensen.todoservice.repository;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.tools.javac.comp.Todo;
 import com.thoughtworks.traing.chensen.todoservice.model.TodoInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

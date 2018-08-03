@@ -1,18 +1,13 @@
 package com.thoughtworks.traing.chensen.todoservice.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.traing.chensen.todoservice.model.TodoInfo;
 import com.thoughtworks.traing.chensen.todoservice.model.User;
-import com.thoughtworks.traing.chensen.todoservice.service.ToDoService;
 import com.thoughtworks.traing.chensen.todoservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -30,7 +25,7 @@ public class UserApi {
     }
 
     @PostMapping("/users")
-    public String addToDo(@RequestBody User user) {
+    public ResponseEntity addToDo(@RequestBody User user) {
         return userService.add(user);
     }
 
