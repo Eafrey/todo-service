@@ -14,6 +14,10 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+
 group = 'com.thoughtworks.traing.chensen'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -38,4 +42,20 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile 'com.google.guava:guava:25.1-jre'
 	compile 'org.json:json:20160810'
+}
+
+tasks.withType(Checkstyle) {
+	reports {
+		xml.enabled false
+		html.enabled true
+//		html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+	}
+}
+
+tasks.withType(FindBugs) {
+	reports {
+		xml.enabled false
+		html.enabled true
+//		html.stylesheet resources.text.fromFile('config/xsl/findbugs-custom.xsl')
+	}
 }
