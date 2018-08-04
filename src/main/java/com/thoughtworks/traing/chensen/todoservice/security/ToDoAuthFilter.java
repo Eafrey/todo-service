@@ -2,6 +2,7 @@ package com.thoughtworks.traing.chensen.todoservice.security;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.net.HttpHeaders;
+import com.thoughtworks.traing.chensen.todoservice.model.User;
 import com.thoughtworks.traing.chensen.todoservice.service.ToDoService;
 import com.thoughtworks.traing.chensen.todoservice.service.UserService;
 import io.jsonwebtoken.Claims;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Optional;
 
 @Component
 public class ToDoAuthFilter extends OncePerRequestFilter {
@@ -40,16 +42,17 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
                     .parseClaimsJws(token)
                     .getBody();
 
-            String userName = (String) body.get("userName");
-            String pasword = (String) body.get("password");
+//            String userName = (String) body.get("userName");
+//            String pasword = (String) body.get("password");
 
             int id = (int) body.get("id");
             UserService.curLogedId = id;
 
+            Optional<User> user = userService.findById(id);
 
-            if (userService.verfiy(userName, pasword)) {
+            if (user.isPresent()) {
                 SecurityContextHolder.getContext().setAuthentication(
-                        new UsernamePasswordAuthenticationToken(userName, null,
+                        new UsernamePasswordAuthenticationToken(user.get().getUserName(), null,
                                 ImmutableList.of(new SimpleGrantedAuthority("admin"),
                                         new SimpleGrantedAuthority("role")))
                 );

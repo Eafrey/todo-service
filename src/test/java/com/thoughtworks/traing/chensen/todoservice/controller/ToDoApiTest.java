@@ -3,6 +3,7 @@ package com.thoughtworks.traing.chensen.todoservice.controller;
 import com.google.common.collect.ImmutableList;
 import com.thoughtworks.traing.chensen.todoservice.model.TodoInfo;
 import com.thoughtworks.traing.chensen.todoservice.repository.ToDoRepository;
+import com.thoughtworks.traing.chensen.todoservice.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,24 +37,8 @@ public class ToDoApiTest {
     @MockBean
     private ToDoRepository toDoRepository;
 
-//    @Test
-//    public void shouldReturnTodoList() throws Exception {
-//        when(toDoRepository.getListFromFile())
-//                .thenReturn(ImmutableList.of(new TodoInfo(111, "123")));
-//
-//        MvcResult result = mockMvc.perform(get("/todos"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.length()").value(1))
-//                .andExpect(jsonPath("$[0].id").value(111))
-//                .andExpect(jsonPath("$[0].complete").value(false))
-//                .andReturn();
-//    }
-
     @Test
     public void shoulReturnUnauthenticate() throws Exception {
-        when(toDoRepository.findAll())
-                .thenReturn(ImmutableList.of(new TodoInfo(111, "user-1", true, false, null, true, false, new Date(), 1)
-                ,new TodoInfo(111, "user-2", true, false, null, true, false, new Date(), 1)));
 
         mockMvc.perform(get("/todos"))
                 .andExpect(status().isUnauthorized());
@@ -61,7 +46,8 @@ public class ToDoApiTest {
 
     @Test
     public void shoulReturnTodosWhenHadAuthenticate() throws Exception {
-        when(toDoRepository.findAll())
+        UserService.curLogedId = 1;
+        when(toDoRepository.findTodoInfosByCreateByIs(1))
                 .thenReturn(ImmutableList.of(new TodoInfo(111, "user-1", true, false, null, true, false, new Date(), 1)
                         ,new TodoInfo(111, "user-2", true, false, null, true, false, new Date(), 1)));
 

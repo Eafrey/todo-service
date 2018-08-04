@@ -34,4 +34,9 @@ public class UserApi {
     public List<User> todo() throws IOException {
         return userService.getUsers();
     }
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody User user) {
+        return userService.login(user);
+    }
 }

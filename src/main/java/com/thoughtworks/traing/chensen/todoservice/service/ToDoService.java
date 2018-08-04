@@ -2,9 +2,11 @@ package com.thoughtworks.traing.chensen.todoservice.service;
 
 import com.thoughtworks.traing.chensen.todoservice.model.Task;
 import com.thoughtworks.traing.chensen.todoservice.model.TodoInfo;
+import com.thoughtworks.traing.chensen.todoservice.model.User;
 import com.thoughtworks.traing.chensen.todoservice.repository.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -20,8 +22,8 @@ public class ToDoService {
     private ToDoRepository toDoRepository;
 
     public List<TodoInfo> getToDos() throws IOException {
-        return toDoRepository.findAll();
-//        return toDoRepository.findTodoInfosByCreateByIs(UserService.curLogedId);
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return toDoRepository.findTodoInfosByCreateByIs(UserService.curLogedId);
     }
 
     @Transactional
@@ -39,7 +41,6 @@ public class ToDoService {
     }
 
     public void add(TodoInfo todoInfo) {
-//        System.out.println("todoInfoBody"+todoInfo);
         todoInfo.setCreateBy(UserService.curLogedId);
         toDoRepository.save(todoInfo);
     }

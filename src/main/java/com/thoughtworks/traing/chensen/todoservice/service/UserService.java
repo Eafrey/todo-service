@@ -69,9 +69,8 @@ public class UserService {
         }
         Optional<User> userInDB = userRepository.findByUserName(userName);
 
-
-        claims.put("userName", userName);
-        claims.put("password", password);
+//        claims.put("userName", userName);
+//        claims.put("password", password);
         claims.put("id", userInDB.get().getId());
         String token = Jwts.builder()
                 .addClaims(claims)
@@ -79,5 +78,9 @@ public class UserService {
                 .compact();
 
         return ResponseEntity.ok(token);
+    }
+
+    public Optional<User> findById(int id) {
+        return userRepository.findUserById(id);
     }
 }
