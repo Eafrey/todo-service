@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.Test;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class JwtTest {
         String token = Jwts.builder()
                 .addClaims(claims)
 //                .setExpiration(Date.from(Instant.now().minus(1, ChronoUnit.DAYS)))
-                .signWith(SignatureAlgorithm.HS512, "kitty".getBytes())
+                .signWith(SignatureAlgorithm.HS512, "kitty".getBytes(Charset.defaultCharset()))
                 .compact();
 
         System.out.println(token);

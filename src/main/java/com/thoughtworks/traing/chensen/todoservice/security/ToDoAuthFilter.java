@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -28,7 +29,8 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
     @Autowired
     private UserService userService;
 
-    public static final byte[] SECRET_KEY = "kitty".getBytes();
+
+    public static final byte[] SECRET_KEY = "kitty".getBytes(Charset.defaultCharset());
 
 
     @Override

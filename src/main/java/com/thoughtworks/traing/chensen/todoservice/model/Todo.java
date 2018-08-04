@@ -52,6 +52,10 @@ public class Todo {
     @Column(columnDefinition = "DATETIME")
     private Date date;
 
+    public Date getDate() {
+        return (Date) date.clone();
+    }
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int createBy;
 
