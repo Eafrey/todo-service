@@ -61,19 +61,14 @@ public class UserService {
 
     public ResponseEntity login(User user) {
 
-        Map<String, Object> claims = new HashMap<>();
         String userName = user.getUserName();
         String password = user.getPassword();
         if (!verfiy(userName, password)) {
             return new ResponseEntity(HttpStatus.BAD_GATEWAY);
         }
         Optional<User> userInDB = userRepository.findByUserName(userName);
-
-        claims.put("id", userInDB.get().getId());
-        String token = Jwts.builder()
-                .addClaims(claims)
-                .signWith(SignatureAlgorithm.HS512, ToDoAuthFilter.SECRET_KEY)
-                .compact();
+        int id = userInDB.get().getId();
+        String token = ToDoAuthFilter.generateToken(id);
 
         return ResponseEntity.ok(token);
     }

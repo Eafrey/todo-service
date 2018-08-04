@@ -7,6 +7,7 @@ import com.thoughtworks.traing.chensen.todoservice.service.ToDoService;
 import com.thoughtworks.traing.chensen.todoservice.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -31,6 +34,17 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
 
 
     protected static final byte[] SECRET_KEY = "kitty".getBytes(Charset.defaultCharset());
+
+    public static String generateToken(int id) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", id);
+
+        String token = Jwts.builder()
+                .addClaims(claims)
+                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+                .compact();
+        return  token;
+    }
 
 
     @Override
