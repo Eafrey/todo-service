@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.List;
 
-@RestController
-public class UserApi {
+@RestController public class UserApi {
 
     @Autowired
     private UserService userService;
