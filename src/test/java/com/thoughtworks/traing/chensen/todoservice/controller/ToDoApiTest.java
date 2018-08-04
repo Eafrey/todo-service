@@ -43,7 +43,6 @@ public class ToDoApiTest {
 
     @Test
     public void shoulReturnTodosWhenHadAuthenticate() throws Exception {
-        UserService.curLogedId = 1;
         when(toDoRepository.findTodoInfosByCreateByIs(1))
                 .thenReturn(ImmutableList.of(new Todo(111, "user-1", true, false, null, true, false, new Date(), 1),
                         new Todo(111, "user-2", true, false, null, true, false, new Date(), 1)));

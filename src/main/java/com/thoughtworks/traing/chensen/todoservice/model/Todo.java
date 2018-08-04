@@ -2,6 +2,7 @@ package com.thoughtworks.traing.chensen.todoservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -49,6 +50,7 @@ public class Todo {
 
     private boolean deleted;
 
+    @Ignore
     @Column(columnDefinition = "DATETIME")
     private Date date;
 
