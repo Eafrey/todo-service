@@ -1,15 +1,15 @@
 package com.thoughtworks.traing.chensen.todoservice.repository;
 
-import com.thoughtworks.traing.chensen.todoservice.model.TodoInfo;
+import com.thoughtworks.traing.chensen.todoservice.model.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ToDoRepository extends JpaRepository<TodoInfo, Integer> {
+public interface ToDoRepository extends JpaRepository<Todo, Integer> {
 
-    public List<TodoInfo> findTodoInfosByCreateByIs(int creatBy);
+    public List<Todo> findTodoInfosByCreateByIs(int creatBy);
 
 
 //    @Value(value = "classpath:static/todo.json")
@@ -19,17 +19,17 @@ public interface ToDoRepository extends JpaRepository<TodoInfo, Integer> {
 //    private ObjectMapper objectMapper;
 //
 //
-//    public List<TodoInfo> list() {
-//        List<TodoInfo> res = new ArrayList<>();
-//        res.add(new TodoInfo(1, "todo1"));
-//        res.add(new TodoInfo(2, "todo2"));
-//        res.add(new TodoInfo(3, "todo3"));
+//    public List<Todo> list() {
+//        List<Todo> res = new ArrayList<>();
+//        res.add(new Todo(1, "todo1"));
+//        res.add(new Todo(2, "todo2"));
+//        res.add(new Todo(3, "todo3"));
 //
 //        return  res;
 //    }
 //
-//    public List<TodoInfo> getListFromFile() throws IOException {
-//        List<TodoInfo> res = new ArrayList<>();
+//    public List<Todo> getListFromFile() throws IOException {
+//        List<Todo> res = new ArrayList<>();
 //        String jsonStr = "";
 //        try {
 //            InputStreamReader reader = new InputStreamReader(data.getInputStream());
@@ -45,15 +45,15 @@ public interface ToDoRepository extends JpaRepository<TodoInfo, Integer> {
 ////                JSONObject jo = (JSONObject) todos.get(i);
 ////                int id = jo.getInt("id");
 ////                String content = jo.getString("content");
-////                TodoInfo todoInfo = new TodoInfo(id, content);
-////                res.add(todoInfo);
+////                Todo todo = new Todo(id, content);
+////                res.add(todo);
 ////            }
 ////            System.out.print("todos" + res);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //
-//        List<TodoInfo> list = objectMapper.readValue(jsonStr, new TypeReference<List<TodoInfo>>(){});
+//        List<Todo> list = objectMapper.readValue(jsonStr, new TypeReference<List<Todo>>(){});
 //
 //        return list;
 //    }

@@ -1,14 +1,9 @@
 package com.thoughtworks.traing.chensen.todoservice.service;
 
-import com.thoughtworks.traing.chensen.todoservice.model.Task;
-import com.thoughtworks.traing.chensen.todoservice.model.TodoInfo;
-import com.thoughtworks.traing.chensen.todoservice.model.User;
+import com.thoughtworks.traing.chensen.todoservice.model.Todo;
 import com.thoughtworks.traing.chensen.todoservice.repository.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -21,13 +16,13 @@ public class ToDoService {
     @Autowired
     private ToDoRepository toDoRepository;
 
-    public List<TodoInfo> getToDos() throws IOException {
+    public List<Todo> getToDos() throws IOException {
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return toDoRepository.findTodoInfosByCreateByIs(UserService.curLogedId);
     }
 
     @Transactional
-    public TodoInfo find(Integer id) {
+    public Todo find(Integer id) {
         return Optional.ofNullable(toDoRepository.findOne(id))
                 .orElseThrow(null);
     }
@@ -36,12 +31,12 @@ public class ToDoService {
         toDoRepository.delete(id);
     }
 
-    public void update(TodoInfo todoInfo) {
-        toDoRepository.save(todoInfo);
+    public void update(Todo todo) {
+        toDoRepository.save(todo);
     }
 
-    public void add(TodoInfo todoInfo) {
-        todoInfo.setCreateBy(UserService.curLogedId);
-        toDoRepository.save(todoInfo);
+    public void add(Todo todo) {
+        todo.setCreateBy(UserService.curLogedId);
+        toDoRepository.save(todo);
     }
 }

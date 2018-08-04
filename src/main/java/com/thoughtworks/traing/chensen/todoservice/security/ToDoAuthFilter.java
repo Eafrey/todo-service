@@ -42,9 +42,6 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
                     .parseClaimsJws(token)
                     .getBody();
 
-//            String userName = (String) body.get("userName");
-//            String pasword = (String) body.get("password");
-
             int id = (int) body.get("id");
             UserService.curLogedId = id;
 

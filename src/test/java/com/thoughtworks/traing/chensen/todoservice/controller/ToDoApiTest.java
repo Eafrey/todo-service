@@ -1,7 +1,7 @@
 package com.thoughtworks.traing.chensen.todoservice.controller;
 
 import com.google.common.collect.ImmutableList;
-import com.thoughtworks.traing.chensen.todoservice.model.TodoInfo;
+import com.thoughtworks.traing.chensen.todoservice.model.Todo;
 import com.thoughtworks.traing.chensen.todoservice.repository.ToDoRepository;
 import com.thoughtworks.traing.chensen.todoservice.service.UserService;
 import org.junit.Test;
@@ -15,10 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
 
-import java.util.Collections;
 import java.util.Date;
 
 import static org.mockito.Mockito.when;
@@ -48,8 +45,8 @@ public class ToDoApiTest {
     public void shoulReturnTodosWhenHadAuthenticate() throws Exception {
         UserService.curLogedId = 1;
         when(toDoRepository.findTodoInfosByCreateByIs(1))
-                .thenReturn(ImmutableList.of(new TodoInfo(111, "user-1", true, false, null, true, false, new Date(), 1)
-                        ,new TodoInfo(111, "user-2", true, false, null, true, false, new Date(), 1)));
+                .thenReturn(ImmutableList.of(new Todo(111, "user-1", true, false, null, true, false, new Date(), 1)
+                        ,new Todo(111, "user-2", true, false, null, true, false, new Date(), 1)));
 
         SecurityContextHolder.getContext().setAuthentication(
                 new UsernamePasswordAuthenticationToken("user", null,

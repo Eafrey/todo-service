@@ -1,15 +1,12 @@
 package com.thoughtworks.traing.chensen.todoservice.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.traing.chensen.todoservice.model.TodoInfo;
+import com.thoughtworks.traing.chensen.todoservice.model.Todo;
 import com.thoughtworks.traing.chensen.todoservice.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.soap.MimeHeaders;
 import java.io.IOException;
 import java.util.List;
 
@@ -30,19 +27,15 @@ public class ToDoApi {
     }
 
     @GetMapping("/todos/{id}")
-    public TodoInfo find(@PathVariable Integer id) {
+    public Todo find(@PathVariable Integer id) {
         return toDoService.find(id);
     }
 
     @PostMapping("/todos")
-    public void addToDo(@RequestBody TodoInfo todoInfo) {
-        toDoService.add(todoInfo);
+    public void addToDo(@RequestBody Todo todo) {
+        toDoService.add(todo);
     }
 
-//    @PostMapping("/todos")
-//    public void updateToDo(TodoInfo todoInfo) {
-//        toDoService.update(todoInfo);
-//    }
 
     @DeleteMapping("/todos/{id}")
     public void updateToDo(@PathVariable Integer id) {
@@ -50,13 +43,10 @@ public class ToDoApi {
     }
 
     @GetMapping("/todos")
-    public List<TodoInfo> todo() throws IOException {
-//        List<TodoInfo> todoInfos = toDoService.getToDos();
-//        return todoInfos;
-
+    public List<Todo> todo() throws IOException {
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        System.out.println("toDoService.getToDos()" + toDoService.getToDos());
-//        List<TodoInfo> list = objectMapper.readValue(toDoService.getToDos(), new TypeReference<List<TodoInfo>>(){});
+//        List<Todo> list = objectMapper.readValue(toDoService.getToDos(), new TypeReference<List<Todo>>(){});
         return toDoService.getToDos();
     }
 }

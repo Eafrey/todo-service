@@ -1,7 +1,6 @@
 package com.thoughtworks.traing.chensen.todoservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,5 +28,5 @@ public class Task {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "todo_id")
-    private TodoInfo todoInfo;
+    private Todo todo;
 }

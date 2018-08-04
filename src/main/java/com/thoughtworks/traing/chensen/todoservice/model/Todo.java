@@ -29,7 +29,7 @@ import java.util.List;
 @Table(name = "todo")
 @Where(clause = "deleted = false")
 @SQLDelete(sql = "UPDATE todo SET deleted = true WHERE id = ?")
-public class TodoInfo {
+public class Todo {
     @Id
     @GeneratedValue
     private int id;
