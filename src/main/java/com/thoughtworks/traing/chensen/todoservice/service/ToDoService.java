@@ -1,8 +1,13 @@
 package com.thoughtworks.traing.chensen.todoservice.service;
 
 import com.thoughtworks.traing.chensen.todoservice.model.Todo;
+import com.thoughtworks.traing.chensen.todoservice.model.User;
 import com.thoughtworks.traing.chensen.todoservice.repository.ToDoRepository;
+import com.thoughtworks.traing.chensen.todoservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,9 +21,14 @@ public class ToDoService {
     @Autowired
     private ToDoRepository toDoRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public List<Todo> getToDos() throws IOException {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return toDoRepository.findTodoInfosByCreateByIs(UserService.curLogedId);
+        String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> user = userRepository.findByUserName(userName);
+        int id = user.get().getId();
+        return toDoRepository.findTodoInfosByCreateByIs(id);
     }
 
     @Transactional
@@ -36,7 +46,10 @@ public class ToDoService {
     }
 
     public void add(Todo todo) {
-        todo.setCreateBy(UserService.curLogedId);
+        String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> user = userRepository.findByUserName(userName);
+        int id = user.get().getId();
+        todo.setCreateBy(id);
         toDoRepository.save(todo);
     }
 }

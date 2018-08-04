@@ -59,7 +59,7 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
                     .getBody();
 
             int id = (int) body.get("id");
-            UserService.curLogedId = id;
+//            UserService.curLogedId = id;
 
             Optional<User> user = userService.findById(id);
 

@@ -23,7 +23,7 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-    public static int curLogedId;
+//    public static int curLogedId;
 
     public User find(Integer id) {
         return Optional.ofNullable(userRepository.findOne(id))
