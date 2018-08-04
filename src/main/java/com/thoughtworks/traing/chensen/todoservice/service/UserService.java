@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
     private UserRepository userRepository;
@@ -36,7 +36,7 @@ public class UserService {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         String password = user.getPassword();
-        String encodePassword = bCryptPasswordEncoder.encode(password);
+        String encodePassword = encoder.encode(password);
         user.setPassword(encodePassword);
         userRepository.save(user);
         return ResponseEntity.ok("sign success");
@@ -50,9 +50,9 @@ public class UserService {
         Optional<User> user = userRepository.findByUserName(userName);
         if (user.isPresent()) {
 //            return user.map(User::getPassword).filter(p -> p.equals(password)).isPresent();
-            return user.map(User::getPassword).
-                    filter(p -> bCryptPasswordEncoder.matches(password, p) || p.equals(password)).
-                    isPresent();
+            return user.map(User::getPassword)
+                    .filter(p -> encoder.matches(password, p) || p.equals(password))
+                    .isPresent();
 
         } else {
             return false;
