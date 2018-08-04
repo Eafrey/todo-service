@@ -21,13 +21,13 @@ public class JwtTest {
         claims.put("name", "user-3");
         claims.put("password", "123456");
 
-        byte[] secretKey = "kitty".getBytes();
+        byte[] secretKey = "kitty".getBytes(Charset.defaultCharset());
 
         //Generate
         String token = Jwts.builder()
                 .addClaims(claims)
 //                .setExpiration(Date.from(Instant.now().minus(1, ChronoUnit.DAYS)))
-                .signWith(SignatureAlgorithm.HS512, "kitty".getBytes(Charset.defaultCharset()))
+                .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
 
         System.out.println(token);

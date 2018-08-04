@@ -30,7 +30,7 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
     private UserService userService;
 
 
-    public static final byte[] SECRET_KEY = "kitty".getBytes(Charset.defaultCharset());
+    protected static final byte[] SECRET_KEY = "kitty".getBytes(Charset.defaultCharset());
 
 
     @Override
@@ -38,7 +38,7 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if(!StringUtils.isEmpty(token)) {
+        if (!StringUtils.isEmpty(token)) {
             Claims body = Jwts.parser()
                     .setSigningKey(SECRET_KEY)
                     .parseClaimsJws(token)

@@ -52,6 +52,11 @@ public class Todo {
     @Column(columnDefinition = "DATETIME")
     private Date date;
 
+
+    public void setDate(Date date) {
+        this.date = (Date) date.clone();
+    }
+
     public Date getDate() {
         return (Date) date.clone();
     }
