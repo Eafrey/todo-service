@@ -3,7 +3,6 @@ package com.thoughtworks.traing.chensen.todoservice.security;
 import com.google.common.collect.ImmutableList;
 import com.google.common.net.HttpHeaders;
 import com.thoughtworks.traing.chensen.todoservice.model.User;
-import com.thoughtworks.traing.chensen.todoservice.service.ToDoService;
 import com.thoughtworks.traing.chensen.todoservice.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -22,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -42,7 +40,7 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
                 .addClaims(claims)
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 .compact();
-        return  token;
+        return token;
     }
 
 
@@ -58,7 +56,6 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
                     .getBody();
 
             int id = (int) body.get("id");
-//            UserService.curLogedId = id;
 
             Optional<User> user = userService.findById(id);
 

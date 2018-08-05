@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.List;
 
-@RestController public class ToDoApi {
+@RestController
+public class ToDoApi {
 
     @Autowired
     private ToDoService toDoService;
 
     @Autowired
     private ObjectMapper objectMapper;
-
 
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
