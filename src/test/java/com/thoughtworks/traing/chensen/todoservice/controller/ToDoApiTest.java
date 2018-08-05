@@ -44,8 +44,8 @@ public class ToDoApiTest {
     @Test
     public void shoulReturnTodosWhenHadAuthenticate() throws Exception {
         when(toDoRepository.findTodoInfosByCreateByIs(1))
-                .thenReturn(ImmutableList.of(new Todo(111, "user-1", true, false, null, true, false, new Date(), 1),
-                        new Todo(111, "user-2", true, false, null, true, false, new Date(), 1)));
+                .thenReturn(ImmutableList.of(new Todo("user-1", true, false, null, true, false, new Date(), 1),
+                        new Todo("user-2", true, false, null, true, false, new Date(), 1)));
 
         SecurityContextHolder.getContext().setAuthentication(
                 new UsernamePasswordAuthenticationToken("user", null,
