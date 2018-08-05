@@ -32,8 +32,7 @@ public class ToDoAuthFilter extends OncePerRequestFilter {
     @Autowired
     private UserService userService;
 
-
-    protected static final byte[] SECRET_KEY = "kitty".getBytes(Charset.defaultCharset());
+    private static final byte[] SECRET_KEY = "kitty".getBytes(Charset.defaultCharset());
 
     public static String generateToken(int id) {
         Map<String, Object> claims = new HashMap<>();

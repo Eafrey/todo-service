@@ -3,7 +3,6 @@ package com.thoughtworks.traing.chensen.todoservice.controller;
 import com.thoughtworks.traing.chensen.todoservice.model.User;
 import com.thoughtworks.traing.chensen.todoservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +23,7 @@ import java.util.List;
     }
 
     @PostMapping("/users")
-    public ResponseEntity addToDo(@RequestBody User user) {
+    public String addToDo(@RequestBody User user) {
         return userService.add(user);
     }
 
@@ -35,7 +34,7 @@ import java.util.List;
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody User user) {
+    public String login(@RequestBody User user) {
         return userService.login(user);
     }
 }

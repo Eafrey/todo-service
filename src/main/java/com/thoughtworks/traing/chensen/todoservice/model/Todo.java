@@ -2,6 +2,7 @@ package com.thoughtworks.traing.chensen.todoservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.oracle.webservices.internal.api.databinding.DatabindingMode;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,6 @@ import java.util.Date;
 import java.util.List;
 
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -50,10 +50,8 @@ public class Todo {
 
     private boolean deleted;
 
-    @Ignore
     @Column(columnDefinition = "DATETIME")
     private Date date;
-
 
     public void setDate(Date date) {
         this.date = (Date) date.clone();
@@ -66,4 +64,67 @@ public class Todo {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int createBy;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public int getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(int createBy) {
+        this.createBy = createBy;
+    }
 }
