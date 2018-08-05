@@ -1,12 +1,8 @@
 package com.thoughtworks.traing.chensen.todoservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.oracle.webservices.internal.api.databinding.DatabindingMode;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -23,9 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
 @Table(name = "todo")
 @Where(clause = "deleted = false")
@@ -52,6 +46,17 @@ public class Todo {
 
     @Column(columnDefinition = "DATETIME")
     private Date date;
+
+    public Todo(String content, boolean readOnly, boolean complete, List<Task> tasks, boolean visible, boolean deleted, Date date, int createBy) {
+        this.content = content;
+        this.readOnly = readOnly;
+        this.complete = complete;
+        this.tasks = tasks;
+        this.visible = visible;
+        this.deleted = deleted;
+        this.date = (Date) date.clone();
+        this.createBy = createBy;
+    }
 
     public void setDate(Date date) {
         this.date = (Date) date.clone();
@@ -126,5 +131,15 @@ public class Todo {
 
     public void setCreateBy(int createBy) {
         this.createBy = createBy;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }
